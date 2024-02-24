@@ -1,4 +1,8 @@
-In the 'ParticipNonParticip.R' file, you will find an example of how to use the function 'matching_v03.r' using the data 'datExample.csv'.
+This repository is aimed to provide an R function that allows matching individuals from a data frame, e.g., cases a controls of the same age, sex, etc.
+</BR>
+
+
+In the 'ParticipNonParticip.R' file, you will find an example of how to use the function 'matching_v03.r' using the data 'datExample.csv'. Note that:
 
 * The function  'matching_v03.r' is located in the 'functions' subfolder
 
