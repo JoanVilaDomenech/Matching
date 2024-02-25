@@ -72,7 +72,7 @@ matching<-function(data,name.cascon,case.value,id.name,num.controls,var.match,to
   }
 
 
-  ############  FI FUNCIONS PR?VIES ##############
+  ############  END OF PREVIOUS FUNCTIONS ##############
 
 
   CASECON=data[,name.cascon]
@@ -100,7 +100,7 @@ matching<-function(data,name.cascon,case.value,id.name,num.controls,var.match,to
   if(is.null(rownames(match))) rownames(match)<-1:nrow(match)
   if(is.null(rownames(dist))) rownames(dist)<-1:nrow(dist)
 
-  # agafem els casos amb un ordre aleatori.
+  # aTaking cases in a random order.
 
   if (!is.null(seed.cases)) set.seed(seed.cases)
 
@@ -109,7 +109,7 @@ matching<-function(data,name.cascon,case.value,id.name,num.controls,var.match,to
   match2<-match[ordre.casos,]
   dist2<-dist[ordre.casos,]
                                         
-  id.cas<-row.names(match2)  # ? row.names(dist2)
+  id.cas<-row.names(match2)  
 
   if (!is.null(seed.controls)) set.seed(seed.controls)
 
@@ -119,7 +119,7 @@ matching<-function(data,name.cascon,case.value,id.name,num.controls,var.match,to
   	candidats<-candidats[!candidats==""]
   	distancies<-dist2[i,1:length(candidats)]
 
-  	if (i>1){ # no agafem el/s candidat/s que hem agafat per als anteriors casos.
+  	if (i>1){ # Avoiding the candidates we took for the previous cases..
   		elim.anteriors<-!candidats%in%cont.matched[1:(i-1),]
   		candidats<-candidats[elim.anteriors]
   		distancies<-distancies[elim.anteriors]
@@ -129,8 +129,8 @@ matching<-function(data,name.cascon,case.value,id.name,num.controls,var.match,to
 
   	if (length(candidats)==num.controls) cont.matched[i,]=candidats
 
-  	if (length(candidats)>num.controls) {	## veure ajuda: estan ordenats segons la dist?ncia de forma creixent
-  		## ordenem els candidats de forma aleatoria dins de cada dist2[i,]
+  	if (length(candidats)>num.controls) {	## they are ordered according to increasing distance
+  		## Sorting the candidates randomly within each dist2[i,]
  			candidats<-lapply(split(as.character(candidats),distancies),function(x) {if (length(x)==1) return(x); if (length(x)>1) return(sample(x))})
  			candidats<-as.character(unlist(candidats))
   		cont.matched[i,]<-candidats[1:num.controls]
@@ -142,7 +142,7 @@ matching<-function(data,name.cascon,case.value,id.name,num.controls,var.match,to
   aux.rep<-NULL
   for (i in 1:ncol(cont.matched)) aux.rep<-c(aux.rep,cont.matched[,i])
 
-  # cat("Aix? ha de sumar zero",sum(table(aux.rep)>1),"\n")  ## sempre ha de donar zero.
+  # cat("This must sum to zero",sum(table(aux.rep)>1),"\n") ## must always return zero.
   print(paste("From " ,nrow(casos)," cases, ", sum(!is.na(cont.matched[,1]))," individuals have been paired.",sep=""))
 
   
